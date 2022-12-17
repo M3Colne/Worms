@@ -23,6 +23,16 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "Worms.h"
+#include "FrameTimer.h"
+#include "Noise.h"
+#include <random>
+
+struct Trail
+{
+	Vei2 pos = Vei2(0, 0);
+	float color = 255.0f;
+};
 
 class Game
 {
@@ -36,11 +46,23 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void UpdateTrails(float dt);
+	void UpdateWormVelocity();
+	void ClampToScreen();
+	void CapSpeed(Vec2& v, float maxS);
 	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	FrameTimer ft;
+	float eta = 0.0f;
+	std::vector<Trail> trails;
+	static constexpr int nWorms = 10000;
+	Worm worms[nWorms] = {};
+	const float wormSpeed = 50.0f;
+	const float trailDiffusionRate = 255.0f;
+	bool mousePressed = false;
 	/********************************/
 };

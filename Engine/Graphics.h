@@ -20,7 +20,7 @@
 ******************************************************************************************/
 #pragma once
 #include <d3d11.h>
-#include <wrl.h>
+#include <wrl/client.h>
 #include "ChiliException.h"
 #include "Colors.h"
 #include "Vec2.h"
